@@ -1,19 +1,37 @@
 import { parseCSV } from "../src/basic-parser";
 import * as path from "path";
+import { z } from "zod";
 
 const PEOPLE_CSV_PATH = path.join(__dirname, "../data/people.csv");
 const TESTDATA_CSV_PATH = path.join(__dirname, "../data/testdata.csv");
 
+//creating a schema for the people csv to follow
+const peopleSchema = z.tuple([z.string(), z.coerce.number().min(0)]);
+
+
+
 test("parseCSV yields arrays", async () => {
-  const results = await parseCSV(PEOPLE_CSV_PATH)
+  const results = await parseCSV(PEOPLE_CSV_PATH, peopleSchema)
   
-  expect(results).toHaveLength(9);
+  expect(results).toHaveLength(10);
   expect(results[0]).toEqual(["name", "age"]);
   expect(results[1]).toEqual(["Alice", "23"]);
   expect(results[2]).toEqual(["Bob", "thirty"]); // why does this work? :(
   expect(results[3]).toEqual(["Charlie", "25"]);
   expect(results[4]).toEqual(["Nim", "22"]);
+  expect(results[5]).toEqual(["David", "-5"]);
+  expect(results[9]).toEqual(["15", "john"]);
 });
+
+test("schema correctly returns error", async () => {
+  const results = await parseCSV(PEOPLE_CSV_PATH, peopleSchema);
+
+  expect(peopleSchema.safeParse(["Alice", "23"]).success).toBe(true);
+  expect(peopleSchema.safeParse(["Bob", "thirty"]).success).toBe(false);
+  expect(peopleSchema.safeParse(["David", "-5"]).success).toBe(false);
+  expect(peopleSchema.safeParse(["15", "john"]).success).toBe(false);
+  expect(peopleSchema.safeParse(["Nim", "22"]).success).toBe(true);
+})
 
 test("parseCSV yields only arrays", async () => {
   const results = await parseCSV(PEOPLE_CSV_PATH)

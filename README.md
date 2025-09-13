@@ -28,5 +28,11 @@
 #### Team members and contributions (include cs logins):
 
 #### Collaborators (cslogins of anyone you worked with on this project and/or generative AI):
+    Samyak Jain (sjain80)
+    Vivian Wang (vzwang)
+    Oluwatomisola Idiaghe (oidiaghe)
+    Paula Romero (psromero)
+
 #### Total estimated time it took to complete project:
+
 #### Link to GitHub Repo:  

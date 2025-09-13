@@ -1,0 +1,43 @@
+1. Correctness:
+What makes a CSV parser “correct”? We're not asking for additional input-output pairs here,
+but fairly precise, natural-language descriptions. Put another way, what kinds of general 
+properties should your tests be checking about your CSV parser?
+
+        A CSV parser is correct if:
+
+            It correctly splits the input data into rows and columns according to how 
+            the caller intended.
+
+            It abides by the caller's rules on acceptable and invalid input data. 
+
+            It does not skip or miss any data points in the CSV file. 
+
+            It retains its functionality regardless of the data and symbols input by the caller.
+
+2.Random, On-Demand Generation:
+Suppose we gave you a function that randomly produced CSV data on demand. You could then call this
+class from your testing code. How might you use this source of random data to expand the power
+of your testing?
+
+        This random data would provide unbiased data for the code to be tested on to ensure it functions
+        the same on all symbols and forms of data. The repetition that can be attained with this random
+        data generator can also be helpful in ensuring accuracy and reliability of the CSV parser. 
+
+3. Overall experience, Bugs encountered and resolved
+In what ways did this sprint differ from prior programming assignments you’ve done? Did anything
+surprise you? Did you encounter any bugs during your work on this sprint? If yes, what were they and how
+did you fix them? If not, how do you think that you managed to avoid them? 
+
+        This sprint differed from other programming assignments that I have done because the class
+        policies and assignment specifications allowed me to think through each problem very thoroughly
+        before beginning to code. To elaborate, instead of programming my initial instinct, I brainstormed 
+        issues with the existing code, consulted LLM's, and collaborated with classmates in order to reach
+        a final conclusion. I appreciated taking this step back to realize the amount that programs and their
+        efficiency come from well-planned problem solving and collective minds and strategies. Because of
+        these strategies, I think I was able to avoid many errors. However, I did come across type issues 
+        when it came to declaring the return type of the parseCSV function due to the variability of the 
+        ouput. Initially, I was unsure how to resolve this without typecasting (the as keyword), but by 
+        looking back at lecture notes and discussing with peers, we remembered how ZodSafeParseResult
+        functions and discovered how to resolve our error with it. 
+
+

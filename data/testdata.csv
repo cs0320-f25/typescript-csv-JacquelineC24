@@ -1,6 +1,6 @@
-a, b 
+a, b
 
-a, b, c
-"he said "hello world"", John
- hi , there
-this is one field, this is another
+a, true
+"he said "hello world"", true
+ hi , false
+this is one field, true

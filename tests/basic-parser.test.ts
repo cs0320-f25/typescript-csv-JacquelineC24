@@ -8,6 +8,8 @@ const TESTDATA_CSV_PATH = path.join(__dirname, "../data/testdata.csv");
 //creating a schema for the people csv to follow
 const peopleSchema = z.tuple([z.string(), z.coerce.number().min(0)]);
 
+//creating a unqiue schema for testdata.csv
+const testDataSchema = z.tuple([z.string(), z.boolean()])
 
 
 test("parseCSV yields arrays", async () => {
@@ -23,8 +25,7 @@ test("parseCSV yields arrays", async () => {
   expect(results[9]).toEqual(["15", "john"]);
 });
 
-test("schema correctly returns error", async () => {
-  const results = await parseCSV(PEOPLE_CSV_PATH, peopleSchema);
+test("schema correctly identifies invalid rows", async () => {
 
   expect(peopleSchema.safeParse(["Alice", "23"]).success).toBe(true);
   expect(peopleSchema.safeParse(["Bob", "thirty"]).success).toBe(false);
@@ -60,12 +61,17 @@ test("parseCSV ignores empty lines", async () => {
 
 test("parseCSV handles double-quoted fields", async () => {
   const testResults = await parseCSV(TESTDATA_CSV_PATH)
-  expect(testResults[3]).toEqual(["\"he said \"hello world\"\"", "John"]);
+  expect(testResults[3]).toEqual(["\"he said \"hello world\"\"", "true"]);
 })
 
 test("parseCSV ignores spaces around values", async () => {
   const testResults = await parseCSV(TESTDATA_CSV_PATH)
-  expect(testResults[4]).toEqual(["hi", "there"]);
-  expect(testResults[5]).toEqual(["this is one field", "this is another"]);
+  expect(testResults[4]).toEqual(["hi", "false"]);
+  expect(testResults[5]).toEqual(["this is one field", "true"]);
 })
 
+test("schema correctly identifies booleans", async () => {
+
+  expect(testDataSchema.safeParse(["hi", false]).success).toBe(true);
+  expect(testDataSchema.safeParse(["a", "b"]).success).toBe(false);
+})

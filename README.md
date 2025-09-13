@@ -3,8 +3,23 @@
 ### Task C: Proposing Enhancement
 
 - #### Step 1: Brainstorm on your own.
+    
+        Functionality:
+
+            The current CSV parser does not correctly handle commas in the CSV data. The parser currently splits the data at each new comma rather than following the convention of checking whether the data that contains the comma is wrapped in double quotes.
+
+            The CSV is underspecified about what should occur when an empty set of strings or an empty field is input into one of the columns of the data. It currently makes the empty string a data point without alerting the user. 
+
+        Extensibility:
+
+            The function could alert the caller when an input does not match the field’s specifications according to the schema. Ex: alert the user that they cannot input a negative age.
+
+            The function could skip empty lines so that they do not become empty arrays in the parsed output.
+
 
 - #### Step 2: Use an LLM to help expand your perspective.
+
+        submitted separately on google doc
 
 - #### Step 3: use an LLM to help expand your perspective.
 
